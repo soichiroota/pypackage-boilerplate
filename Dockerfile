@@ -3,6 +3,7 @@ ADD . /opt/app
 WORKDIR /opt/app
 
 RUN pip3 install poetry
+RUN pip3 install poetry-dynamic-versioning
 COPY poetry.lock pyproject.toml ./
 RUN poetry config virtualenvs.path ".venv"
 RUN poetry config virtualenvs.in-project true

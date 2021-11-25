@@ -37,24 +37,24 @@ up-build:
 down:
 	docker-compose down
 
-test:
-	make install
-	docker-compose run --rm lib poetry run pytest --cov=api tests
+test: install
+	docker-compose run --rm lib poetry run pytest --cov=pypackage_boilerplate tests
 
-lint:
-	make install
-	docker-compose run --rm lib poetry run flake8 tests app.py flask_boilerplate
-	docker-compose run --rm lib poetry run isort --check --diff tests app.py flask_boilerplate
-	docker-compose run --rm lib poetry run black --check tests app.py flask_boilerplate
-	docker-compose run --rm lib poetry run mypy tests app.py flask_boilerplate
+lint: install
+	docker-compose run --rm lib poetry run flake8 tests conf.py pypackage_boilerplate
+	docker-compose run --rm lib poetry run isort --check --diff tests conf.py pypackage_boilerplate
+	docker-compose run --rm lib poetry run black --check tests conf.py pypackage_boilerplate
+	docker-compose run --rm lib poetry run mypy tests conf.py pypackage_boilerplate
 
-format:
-	make install
-	docker-compose run --rm lib poetry run isort tests app.py flask_boilerplate
-	docker-compose run --rm lib poetry run black tests app.py flask_boilerplate
+format: install
+	docker-compose run --rm lib poetry run isort tests conf.py pypackage_boilerplate
+	docker-compose run --rm lib poetry run black tests conf.py pypackage_boilerplate
 
 sphinx:
 	docker-compose run --rm lib poetry run make html
 
 sphinx-apidoc:
 	docker-compose run --rm lib poetry run sphinx-apidoc -f -o ./docs ./ ./tests ./venv conf.py
+
+build--production: update
+	docker-compose run --rm lib poetry build
